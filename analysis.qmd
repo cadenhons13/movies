@@ -35,10 +35,9 @@ movies |>
 movies_gap <- movies_clean |>
   mutate(gap = tomatoMeter - audienceScore)
 
-movies_gap |>
-  distinct(title, .keep_all = TRUE) |>
-  filter(gap < 0) |>
-  slice_min(gap, n = 8, with_ties = FALSE) |>
-  arrange(gap) |>
-  select(title, audienceScore, tomatoMeter, gap)
+movies |>
+  summarise(
+    tomatoMeter_zero = sum(tomatoMeter == 0, na.rm = TRUE),
+    audienceScore_zero = sum(audienceScore == 0, na.rm = TRUE)
+  )
 ```
