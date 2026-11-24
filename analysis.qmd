@@ -33,11 +33,11 @@ movies |>
 
 ```{r}
 movies_gap <- movies_clean |>
+  filter(tomatoMeter != 0, audienceScore != 0) |>
   mutate(gap = tomatoMeter - audienceScore)
 
-movies |>
-  summarise(
-    tomatoMeter_zero = sum(tomatoMeter == 0, na.rm = TRUE),
-    audienceScore_zero = sum(audienceScore == 0, na.rm = TRUE)
-  )
+movies_gap |>
+  group_by(genre) |>
+  summarise(mean_gap = mean(gap), n = n()) |>
+  arrange(mean_gap)
 ```
