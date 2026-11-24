@@ -37,8 +37,8 @@ movies_gap <- movies_clean |>
 
 movies_gap |>
   distinct(title, .keep_all = TRUE) |>
-  filter(gap > 0) |>
-  slice_max(gap, n = 8, with_ties = FALSE) |>
-  arrange(desc(gap)) |>
+  filter(gap < 0) |>
+  slice_min(gap, n = 8, with_ties = FALSE) |>
+  arrange(gap) |>
   select(title, audienceScore, tomatoMeter, gap)
 ```
